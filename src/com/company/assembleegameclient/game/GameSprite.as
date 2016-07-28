@@ -50,7 +50,9 @@ import com.company.util.MoreColorUtil;
 import com.company.util._G_;
 import com.company.util._H_U_;
 
-import flash.display.Sprite;
+    import encounter.Encounter;
+
+    import flash.display.Sprite;
 import flash.events.Event;
 import flash.external.ExternalInterface;
 import flash.filters.ColorMatrixFilter;

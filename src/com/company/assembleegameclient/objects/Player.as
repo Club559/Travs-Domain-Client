@@ -42,7 +42,9 @@ import com.company.util.PointUtil;
 import com.company.util.Trig;
 import com.company.util._G_;
 
-import flash.display.BitmapData;
+    import encounter.Encounter;
+
+    import flash.display.BitmapData;
 import flash.display.GraphicsPath;
 import flash.display.GraphicsSolidFill;
 import flash.display.IGraphicsData;
@@ -240,7 +242,7 @@ public class Player extends Character {
                 map_.addObj(_effect, x_, y_);
             }
         }
-        if (((_00c()) && (!(isPaused())))) {
+        if (((_00c()) && (!(isPaused() || inEncounter)))) {
             if (this._nE_ == null) {
                 this._nE_ = new _4m(this);
                 map_.addObj(this._nE_, x_, y_);
@@ -251,7 +253,7 @@ public class Player extends Character {
                 this._nE_ = null;
             }
         }
-        if ((((map_.player_ == this)) && (isPaused()))) {
+        if ((((map_.player_ == this)) && (isPaused() || inEncounter))) {
             return (true);
         }
         if (this._D_k != null) {
@@ -505,7 +507,7 @@ public class Player extends Character {
     }
 
     public function _0D_X_(_arg1:Player):Boolean {
-        if (((_arg1.isPaused()) || (_arg1._di()))) {
+        if (((_arg1.isPaused()) || _arg1.inEncounter || (_arg1._di()))) {
             return (false);
         }
         return (true);
@@ -519,6 +521,10 @@ public class Player extends Character {
     public function teleportTo(_arg1:Player):Boolean {
         if (isPaused()) {
             map_.gs_.textBox_.addText(Parameters.SendError, "Can not teleport while paused.");
+            return (false);
+        }
+        if (inEncounter) {
+            map_.gs_.textBox_.addText(Parameters.SendError, "Can not teleport while in encounter.");
             return (false);
         }
         var _local2:int = this._Z_C_();
@@ -772,7 +778,7 @@ public class Player extends Character {
         var _local7:XML;
         var _local8:int;
         var _local10:Number;
-        if (map_ == null || isPaused()) {
+        if (map_ == null || isPaused() || inEncounter) {
             return;
         }
         var _local3:int = equipment_[1];
@@ -978,7 +984,7 @@ public class Player extends Character {
     }
 
     private function shoot(_arg1:Number):void {
-        if (map_ == null || _0I_e() || isPaused()) {
+        if (map_ == null || _0I_e() || isPaused() || inEncounter) {
             return;
         }
         var _local2:int = equipment_[0];

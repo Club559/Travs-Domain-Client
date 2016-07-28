@@ -174,7 +174,9 @@ import com.hurlant.crypto.rsa.RSAKey;
 import com.hurlant.util.Base64;
 import com.hurlant.util.der.PEM;
 
-import flash.display.BitmapData;
+    import encounter.Encounter;
+
+    import flash.display.BitmapData;
 import flash.display.Sprite;
 import flash.events.ErrorEvent;
 import flash.events.Event;
@@ -276,13 +278,15 @@ public class _1f {
     public static const CHANGENEXUS:int = 98;
     public static const USEABILITY:int = 99;
     public static const EDITMAP:int = 100;
+    public static const ENCOUNTERSTART:int = 101;
     private static const _vb:Vector.<uint> = new <uint>[14802908, 0xFFFFFF, 0x545454];
     private static const _Z_y:Vector.<uint> = new <uint>[5644060, 16549442, 13484223];
     private static const _0A_F_:Vector.<uint> = new <uint>[2493110, 61695, 13880567];
     private static const _pS_:Vector.<uint> = new <uint>[0x3E8A00, 10944349, 13891532];
     private static const partyColors:Vector.<uint> = new <uint>[0x5656B7, 0x7474F7, 13880567];
 
-    private static var _0L_b:int = int.MIN_VALUE;//-2147483648
+    private static var _0L_b:int = int.MIN_VALUE;
+    //-2147483648
 
     public function _1f(_arg1:GameSprite, _arg2:Server, _arg3:int, _arg4:Boolean, _arg5:int, _arg6:int, _arg7:ByteArray, _arg8:String) {
         this.gs_ = _arg1;
@@ -376,13 +380,14 @@ public class _1f {
         this._08._g9(GETTEXTINPUT, GetTextInput, this.showTextInput);
         this._08._g9(TEXTINPUTRESULT, TextInputResult, null);
         this._08._g9(MARKETTRADE, MarketTrade, null);
-        this._08._g9(MARKETTRADERESULT, MarketTradeResult, this.marketTradeResult)
+        this._08._g9(MARKETTRADERESULT, MarketTradeResult, this.marketTradeResult);
         this._08._g9(MARKETCREATE, MarketCreate, null);
         this._08._g9(ACCEPTQUEST, AcceptQuest, null);
         this._08._g9(COMPLETEQUEST, CompleteQuest, null);
         this._08._g9(CHANGENEXUS, ChangeNexus, null);
         this._08._g9(USEABILITY, UseAbility, null);
         this._08._g9(EDITMAP, EditMap, null);
+        this._08._g9(ENCOUNTERSTART, EncounterStart, this.encounterStart);
         this._08.addEventListener(Event.CONNECT, this._ux);
         this._08.addEventListener(Event.CLOSE, this._of);
         this._08.addEventListener(ErrorEvent.ERROR, this.onError);
@@ -575,7 +580,7 @@ public class _1f {
         var _local8:int;
         var _local3:Number = -1;
         var _local4:Number = -1;
-        if (((!((_arg2 == null))) && (!(_arg2.isPaused())))) {
+        if (((!((_arg2 == null))) && (!(_arg2.isPaused() || _arg2.inEncounter)))) {
             _local3 = _arg2.x_;
             _local4 = _arg2.y_;
         }
@@ -1582,7 +1587,7 @@ public class _1f {
         }
         var _local3:_pK_ = new _pK_(_arg1.pos_._6g(), _arg1.radius_, 0xFF0000);
         this.gs_.map_.addObj(_local3, _arg1.pos_.x_, _arg1.pos_.y_);
-        if (((_local2._0C_4()) || (_local2.isPaused()))) {
+        if (((_local2._0C_4()) || (_local2.isPaused()) || _local2.inEncounter)) {
             this._H_q(this.gs_.lastUpdate_, _local2.x_, _local2.y_);
             return;
         }
@@ -1723,6 +1728,19 @@ public class _1f {
     private function showTextInput(_arg1:GetTextInput):void {
         var _local1:TextInputForm = new TextInputForm(this.gs_, _arg1.name_, _arg1.action_);
         this.gs_.stage.addChild(new FrameHolder(_local1));
+    }
+
+    private function encounterStart(_arg1:EncounterStart):void {
+        _vf._gs.reload("encounter", false);
+        _vf._gs.newSound.addEventListener(Event.COMPLETE, onEncounterSoundLoaded);
+        this.gs_.map_.player_.inEncounter = true;
+    }
+
+    private function onEncounterSoundLoaded(event:Event):void {
+        var encounter:Encounter = new Encounter();
+        this.gs_.stage.addChild(encounter);
+        this.gs_.stage.stageFocusRect = false;
+        this.gs_.stage.focus = encounter;
     }
 
     private function _ux(_arg1:Event):void {

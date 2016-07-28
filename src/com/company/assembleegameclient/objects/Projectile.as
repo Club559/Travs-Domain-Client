@@ -19,7 +19,9 @@ import com.company.assembleegameclient.util._wW_;
 import com.company.util.GraphicHelper;
 import com.company.util.Trig;
 
-import flash.display.BitmapData;
+    import encounter.Encounter;
+
+    import flash.display.BitmapData;
 import flash.display.GradientType;
 import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsPath;
@@ -152,7 +154,7 @@ public class Projectile extends BasicObject {
             } else if (_local6 == map_.player_) {
                 _local7 = true;
             }
-            if (((_local7) && (!(map_.player_.isPaused())))) {
+            if (((_local7) && (!(map_.player_.isPaused() || map_.player_.inEncounter)))) {
                 _local8 = GameObject._C_f(this.damage_, _local6.defense_, this._ko._N_J_, _local6._9B_);
                 _local9 = false;
                 if (_local6.HP_ <= _local8) {
@@ -311,7 +313,7 @@ public class Projectile extends BasicObject {
             if (!_local5._0C_4()) {
                 if (!_local5._C_H_()) {
                     if ((this._jr && _local5.objectId_ != this.ownerId_ && ((_local5.pvp_ && _local5.props_._0E_4) || _local5.props_.isEnemy_)) || (this._0H_n && _local5.props_._0E_4)) {
-                        if (!((_local5._aE_) || (_local5.isPaused()))) {
+                        if (!((_local5._aE_) || (_local5.isPaused()) || _local5.inEncounter)) {
                             _local6 = (((_local5.x_ > _arg1)) ? (_local5.x_ - _arg1) : (_arg1 - _local5.x_));
                             _local7 = (((_local5.y_ > _arg2)) ? (_local5.y_ - _arg2) : (_arg2 - _local5.y_));
                             if (!(((_local6 > _local5.radius_)) || ((_local7 > _local5.radius_)))) {

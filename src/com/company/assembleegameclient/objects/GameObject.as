@@ -179,6 +179,7 @@ public class GameObject extends BasicObject {
     public var tempSkinId_:int = -1;
     public var pvp_:Boolean = false;
     public var team_:int = 0;
+    public var inEncounter:Boolean = false;
     protected var _tm:BitmapData = null;
     protected var _qm:Dictionary = null;
     protected var tex1Id_:int = 0;

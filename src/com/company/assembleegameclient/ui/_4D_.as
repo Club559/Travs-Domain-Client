@@ -185,13 +185,17 @@ public class _4D_ extends Sprite {
         } else if (_arg1 == "/encounter") {
             _vf._gs.reload("encounter", false);
             _vf._gs.newSound.addEventListener(Event.COMPLETE, onEncounterSoundLoaded);
+            this.gs_.map_.player_.inEncounter = true;
             return true;
         }
         return false;
     }
 
     private function onEncounterSoundLoaded(event:Event):void {
-        stage.addChild(new Encounter());
+        var encounter:Encounter = new Encounter();
+        stage.addChild(encounter);
+        stage.stageFocusRect = false;
+        stage.focus = encounter;
     }
 
     private function _03z(_arg1:Boolean):void {

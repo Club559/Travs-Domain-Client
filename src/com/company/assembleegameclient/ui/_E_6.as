@@ -153,7 +153,7 @@ public class _E_6 extends Slot {
             return;
         }
         var _local2:Player = this._e9.gs_.map_.player_;
-        if ((((_local2 == null)) || (_local2.isPaused()))) {
+        if ((((_local2 == null)) || (_local2.isPaused()) || _local2.inEncounter)) {
             return;
         }
         var _local3:Boolean = _local1.hasOwnProperty("Consumable");

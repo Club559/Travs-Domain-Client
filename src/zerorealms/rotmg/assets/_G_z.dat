@@ -107,4 +107,7 @@
    <Region type="0x25" id="Item Spawn Point">
       <Color>0x555555</Color>
    </Region>
+   <Region type="0x26" id="Encounter">
+      <Color>0x007F46</Color>
+   </Region>
 </Regions>

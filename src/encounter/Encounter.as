@@ -10,41 +10,48 @@ package encounter {
   import flash.utils.Timer;
 
   public class Encounter extends Sprite {
+    public static var ACTIVE:Boolean = false;
+
     private var step:int = 0;
+    private var flashSprite:Sprite;
     private var fadeIO:Boolean = true;
-    private var rectTimer:Timer;
     private var rectCount:int = 0;
 
     public function Encounter() {
-      this.alpha = 0;
-      this.graphics.beginFill(0, 1);
-      this.graphics.drawRect(0, 0, 800, 600);
-      this.graphics.endFill();
+      this.flashSprite = new Sprite();
+      this.flashSprite.alpha = 0;
+      this.flashSprite.graphics.beginFill(0);
+      this.flashSprite.graphics.drawRect(0, 0, 800, 600);
+      this.flashSprite.graphics.endFill();
+      addChild(this.flashSprite);
+      focusRect = false;
       addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
     }
 
     private function onAddedToStage(event:Event):void {
+      Encounter.ACTIVE = true;
       addEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
     private function onEnterFrame(event:Event):void {
+      stage.focus = this;
       if(this.step < 4) {
         if(this.fadeIO) {
-          this.alpha += 0.1;
-          if(this.alpha >= 1) {
+          this.flashSprite.alpha += 0.1;
+          if(this.flashSprite.alpha >= 1) {
+            this.flashSprite.alpha = 1;
             this.fadeIO = false;
           }
         } else {
-          this.alpha -= 0.1;
-          if(this.alpha <= 0) {
+          this.flashSprite.alpha -= 0.1;
+          if(this.flashSprite.alpha <= 0) {
+            this.flashSprite.alpha = 0;
             this.step++;
             this.fadeIO = true;
             if(this.step == 4) {
-              this.graphics.clear();
-              this.alpha = 1;
-              this.rectTimer = new Timer(25, 25);
-              this.rectTimer.addEventListener(TimerEvent.TIMER, onRectTimer);
-              this.rectTimer.start();
+              var rectTimer:Timer = new Timer(25, 25);
+              rectTimer.addEventListener(TimerEvent.TIMER, onRectTimer);
+              rectTimer.start();
             }
           }
         }
