@@ -16,6 +16,10 @@ package encounter {
     private var flashSprite:Sprite;
     private var fadeIO:Boolean = true;
     private var rectCount:int = 0;
+    private var doneTimer:Timer;
+    private var coverRect1:Sprite;
+    private var coverRect2:Sprite;
+    private var encounterBattle:EncounterBattle;
 
     public function Encounter() {
       this.flashSprite = new Sprite();
@@ -52,10 +56,49 @@ package encounter {
               var rectTimer:Timer = new Timer(25, 25);
               rectTimer.addEventListener(TimerEvent.TIMER, onRectTimer);
               rectTimer.start();
+
+              doneTimer = new Timer(1500, 0);
+              doneTimer.addEventListener(TimerEvent.TIMER, onDoneTimer);
+              doneTimer.start();
             }
           }
         }
       }
+      if(this.coverRect1 != null) {
+        this.coverRect1.y -= 5;
+        if(this.coverRect1.y <= -300) {
+          removeChild(this.coverRect1);
+          this.coverRect1 = null;
+        }
+      }
+      if(this.coverRect2 != null) {
+        this.coverRect2.y += 5;
+        if(this.coverRect2.y >= 600) {
+          removeChild(this.coverRect2);
+          this.coverRect2 = null;
+        }
+      }
+    }
+
+    private function onDoneTimer(event:TimerEvent):void {
+      doneTimer.stop();
+
+      this.encounterBattle = new EncounterBattle();
+      this.encounterBattle.x = 40;
+      this.encounterBattle.y = 60;
+      addChild(this.encounterBattle);
+
+      this.coverRect1 = new Sprite();
+      this.coverRect1.graphics.beginFill(0);
+      this.coverRect1.graphics.drawRect(0, 0, 800, 300);
+      this.coverRect1.graphics.endFill();
+      addChild(this.coverRect1);
+      this.coverRect2 = new Sprite();
+      this.coverRect2.graphics.beginFill(0);
+      this.coverRect2.graphics.drawRect(0, 0, 800, 300);
+      this.coverRect2.graphics.endFill();
+      this.coverRect2.y = 300;
+      addChild(this.coverRect2);
     }
 
     private function onRectTimer(event:TimerEvent):void {
