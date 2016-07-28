@@ -16,7 +16,7 @@ package encounter {
     }
 
     private function onEnterFrame(event:Event):void {
-      this.scaleX += 0.1;
+      this.scaleX += 0.15;
       //this.scaleY += 0.1;
       if(this.scaleX >= 1) {
         this.scaleX = 1;

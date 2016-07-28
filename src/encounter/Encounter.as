@@ -37,13 +37,13 @@ package encounter {
       stage.focus = this;
       if(this.step < 4) {
         if(this.fadeIO) {
-          this.flashSprite.alpha += 0.1;
+          this.flashSprite.alpha += 0.125;
           if(this.flashSprite.alpha >= 1) {
             this.flashSprite.alpha = 1;
             this.fadeIO = false;
           }
         } else {
-          this.flashSprite.alpha -= 0.1;
+          this.flashSprite.alpha -= 0.125;
           if(this.flashSprite.alpha <= 0) {
             this.flashSprite.alpha = 0;
             this.step++;
