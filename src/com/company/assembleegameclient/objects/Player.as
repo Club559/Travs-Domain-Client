@@ -254,6 +254,8 @@ public class Player extends Character {
             }
         }
         if ((((map_.player_ == this)) && (isPaused() || inEncounter))) {
+            moveVec_.x = 0;
+            moveVec_.y = 0;
             return (true);
         }
         if (this._D_k != null) {

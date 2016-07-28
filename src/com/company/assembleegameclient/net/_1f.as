@@ -1737,7 +1737,7 @@ public class _1f {
     }
 
     private function onEncounterSoundLoaded(event:Event):void {
-        var encounter:Encounter = new Encounter();
+        var encounter:Encounter = new Encounter(this.gs_);
         this.gs_.stage.addChild(encounter);
         this.gs_.stage.stageFocusRect = false;
         this.gs_.stage.focus = encounter;

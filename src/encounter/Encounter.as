@@ -4,6 +4,8 @@
 package encounter {
   import _05R_.GTween;
 
+  import com.company.assembleegameclient.game.GameSprite;
+
   import flash.display.Sprite;
   import flash.events.Event;
   import flash.events.TimerEvent;
@@ -12,6 +14,7 @@ package encounter {
   public class Encounter extends Sprite {
     public static var ACTIVE:Boolean = false;
 
+    private var gs:GameSprite;
     private var step:int = 0;
     private var flashSprite:Sprite;
     private var fadeIO:Boolean = true;
@@ -21,7 +24,8 @@ package encounter {
     private var coverRect2:Sprite;
     private var encounterBattle:EncounterBattle;
 
-    public function Encounter() {
+    public function Encounter(gs:GameSprite) {
+      this.gs = gs;
       this.flashSprite = new Sprite();
       this.flashSprite.alpha = 0;
       this.flashSprite.graphics.beginFill(0);
@@ -69,6 +73,7 @@ package encounter {
         if(this.coverRect1.y <= -300) {
           removeChild(this.coverRect1);
           this.coverRect1 = null;
+          this.step++;
         }
       }
       if(this.coverRect2 != null) {
@@ -76,14 +81,19 @@ package encounter {
         if(this.coverRect2.y >= 600) {
           removeChild(this.coverRect2);
           this.coverRect2 = null;
+          this.step++;
         }
+      }
+      if(this.step == 6) {
+        this.encounterBattle.start();
+        this.step++;
       }
     }
 
     private function onDoneTimer(event:TimerEvent):void {
       doneTimer.stop();
 
-      this.encounterBattle = new EncounterBattle();
+      this.encounterBattle = new EncounterBattle(this.gs);
       this.encounterBattle.x = 40;
       this.encounterBattle.y = 60;
       addChild(this.encounterBattle);

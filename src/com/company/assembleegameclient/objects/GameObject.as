@@ -182,8 +182,8 @@ public class GameObject extends BasicObject {
     public var inEncounter:Boolean = false;
     protected var _tm:BitmapData = null;
     protected var _qm:Dictionary = null;
-    protected var tex1Id_:int = 0;
-    protected var tex2Id_:int = 0;
+    public var tex1Id_:int = 0;
+    public var tex2Id_:int = 0;
     protected var _S_9:int = 0;
     protected var _ad:int = -1;
     protected var _Z_M_:Point;
