@@ -4,7 +4,13 @@
 //com.company.assembleegameclient.ui._4D_
 
 package com.company.assembleegameclient.ui {
+    import _A_G_._v1;
+
     import _sP_.MarketplaceContainerUI;
+
+    import _vf._gs;
+
+    import encounter.Encounter;
 
     import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -176,8 +182,16 @@ public class _4D_ extends Sprite {
         } else if (_arg1 == "/edit") {
             this.gs_._V_1.editing_ = !this.gs_._V_1.editing_;
             return true;
+        } else if (_arg1 == "/encounter") {
+            _vf._gs.reload("encounter", false);
+            _vf._gs.newSound.addEventListener(Event.COMPLETE, onEncounterSoundLoaded);
+            return true;
         }
         return false;
+    }
+
+    private function onEncounterSoundLoaded(event:Event):void {
+        stage.addChild(new Encounter());
     }
 
     private function _03z(_arg1:Boolean):void {

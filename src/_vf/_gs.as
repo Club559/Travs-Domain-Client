@@ -4,7 +4,8 @@
 //_vf._gs
 
 package _vf {
-import flash.media.Sound;
+    import flash.events.Event;
+    import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.net.URLRequest;
 
@@ -19,7 +20,7 @@ public class _gs {
     public static var music_:String = "Menu";
     private static var currentSoundChannel:SoundChannel = null;
     private static var currentSoundTransform:SoundTransform = null;
-    private static var newSound:Sound = null;
+    public static var newSound:Sound = null;
     private static var newSoundChannel:SoundChannel = null;
     private static var newSoundTransform:SoundTransform = null;
 
@@ -40,7 +41,7 @@ public class _gs {
         return menuMusic[Math.round(Math.random() * (menuMusic.length - 1))];
     }
 
-    public static function reload(name:String):void {
+    public static function reload(name:String, fade:Boolean=true):void {
         if (music_ == name) return;
         music_ = name;
         try {
@@ -55,8 +56,12 @@ public class _gs {
             trace(e);
         }
         //if (fadeIn < 0.65) endFade();
-        fadeIn = 0;
-        fadeOut = 0.65;
+        if(fade) {
+            fadeIn = 0;
+            fadeOut = 0.65;
+        } else {
+            endFade();
+        }
     }
 
     public static function endFade():void {
