@@ -192,7 +192,7 @@ public class _4D_ extends Sprite {
     }
 
     private function onEncounterSoundLoaded(event:Event):void {
-        var encounter:Encounter = new Encounter(this.gs_, "DOGGO");
+        var encounter:Encounter = new Encounter(this.gs_, "Charizard");
         stage.addChild(encounter);
         stage.stageFocusRect = false;
         stage.focus = encounter;

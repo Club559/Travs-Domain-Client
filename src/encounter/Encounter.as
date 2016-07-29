@@ -13,6 +13,7 @@ package encounter {
 
   public class Encounter extends Sprite {
     public static var ACTIVE:Boolean = false;
+    public static var PREVIOUSMUSIC:String = "";
 
     public var pokemon:String;
     private var gs:GameSprite;

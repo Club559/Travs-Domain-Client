@@ -8,6 +8,7 @@ package encounter {
   import com.company.assembleegameclient.game.GameSprite;
   import com.company.assembleegameclient.objects.ObjectLibrary;
   import com.company.assembleegameclient.objects.Player;
+  import com.company.assembleegameclient.util.PokemonLibrary;
   import com.company.assembleegameclient.util.TextureRedrawer;
   import com.company.assembleegameclient.util._0B_c;
   import com.company.assembleegameclient.util._J_H_;
@@ -34,6 +35,8 @@ package encounter {
     private var desiredText:String = "";
     private var textPosition:int = 0;
     private var textTimer:Timer;
+    private var enemyPokemon:Bitmap;
+    private var yourPokemon:Bitmap;
     private var step:int = 0;
 
     public function EncounterBattle(gs:GameSprite, _encounter:Encounter) {
@@ -54,6 +57,10 @@ package encounter {
       this.textBox.y = this.textBoxSprite.y + 21;
       this.textBox.wordWrap = true;
       addChild(this.textBox);
+      this.enemyPokemon = new Bitmap(PokemonLibrary.getFrontSprite(PokemonLibrary.NameToId[_encounter.pokemon]));
+      this.enemyPokemon.x = 428;
+      this.enemyPokemon.y = 24;
+      addChild(this.enemyPokemon);
 
       var maskSprite:Sprite = new Sprite();
       maskSprite.graphics.beginFill(0, 0);
@@ -114,10 +121,18 @@ package encounter {
 
       var tmr1:Timer = new Timer(2000, 1);
       tmr1.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
-        setText("Go! VARIABLE!");
+        setText("Go! Bulbasaur!");
         new GTween(characterSprite, 1, {x:-characterSprite.width});
       });
+      var tmr2:Timer = new Timer(3000, 1);
+      tmr2.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
+        yourPokemon = new Bitmap(PokemonLibrary.getBackSprite(1));
+        yourPokemon.x = 90;
+        yourPokemon.y = 132;
+        addChild(yourPokemon);
+      });
       tmr1.start();
+      tmr2.start();
     }
   }
 }

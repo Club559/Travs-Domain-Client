@@ -53,6 +53,8 @@ public class DataEmbeds {
     public static const quests:XML = XML(new questsClass());
     private static const abilitiesClass:Class = _abilities;
     public static const abilities:XML = XML(new abilitiesClass());
+    private static const pokemonClass:Class = _pokemon;
+    public static const pokemon:XML = XML(new pokemonClass());
 
 }
 }//package com.company.assembleegameclient.util

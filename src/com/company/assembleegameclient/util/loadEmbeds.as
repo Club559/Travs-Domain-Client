@@ -41,6 +41,7 @@ public class loadEmbeds {
             this.initRegions();
             QuestLibrary.parse(DataEmbeds.quests);
             AbilityLibrary.parse(DataEmbeds.abilities);
+            PokemonLibrary.parse(DataEmbeds.pokemon);
             Parameters.load();
             this._str8553.load();
             _Q_P_.load();

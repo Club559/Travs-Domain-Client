@@ -1731,6 +1731,7 @@ public class _1f {
     }
 
     private function encounterStart(_arg1:EncounterStart):void {
+        Encounter.PREVIOUSMUSIC = _vf._gs.music_;
         _vf._gs.reload("encounter", false);
         _vf._gs.newSound.addEventListener(Event.COMPLETE, function(event:Event){ onEncounterSoundLoaded(_arg1.pokemon_) });
         this.gs_.map_.player_.inEncounter = true;
