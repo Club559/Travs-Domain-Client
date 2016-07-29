@@ -88,6 +88,9 @@ public class loadEmbeds {
             AssetLibrary._05q("customEffects16x16", new AssetEmbeds.customEffects16x16Embed_().bitmapData, 16, 16);
             AssetLibrary._05q("customEffects8x8", new AssetEmbeds.customEffects8x8Embed_().bitmapData, 8, 8);
             AssetLibrary._05q("abilities", new AssetEmbeds.abilitiesEmbed_().bitmapData, 40, 40);
+            AssetLibrary._05q("pokeballs", new AssetEmbeds.pokeballsEmbed_().bitmapData, 16, 16);
+            AssetLibrary._05q("pokemonFront", new AssetEmbeds.pokemonFrontEmbed_().bitmapData, 64, 64);
+            AssetLibrary._05q("pokemonBack", new AssetEmbeds.pokemonBackEmbed_().bitmapData, 64, 64);
             AssetLibrary._05q("invisible", new BitmapData(8, 8, true, 0), 8, 8);
         }
         private function initIndex():void{
