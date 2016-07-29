@@ -2,6 +2,8 @@
  * Created by club5_000 on 7/28/2016.
  */
 package encounter {
+  import _05R_.GTween;
+
   import com.company.assembleegameclient.appengine.SavedCharacter;
   import com.company.assembleegameclient.game.GameSprite;
   import com.company.assembleegameclient.objects.ObjectLibrary;
@@ -25,18 +27,20 @@ package encounter {
 
   public class EncounterBattle extends Sprite {
     private var gs:GameSprite;
+    private var encounter_:Encounter;
     private var characterSprite:Bitmap;
     private var textBoxSprite:EmbedEncounterTextBox;
     private var textBox:SimpleText;
     private var desiredText:String = "";
     private var textPosition:int = 0;
     private var textTimer:Timer;
+    private var step:int = 0;
 
-    public function EncounterBattle(gs:GameSprite) {
+    public function EncounterBattle(gs:GameSprite, _encounter:Encounter) {
       this.gs = gs;
+      this.encounter_ = _encounter;
       addChild(new EmbedEncounterBackground());
-      var cimg:BitmapData = getCharacterImage(gs.map_.player_);
-      this.characterSprite = new Bitmap(cimg);
+      this.characterSprite = new Bitmap(getCharacterImage(gs.map_.player_));
       this.characterSprite.scaleX = 3;
       this.characterSprite.scaleY = 3;
       this.characterSprite.x = 100;
@@ -51,7 +55,14 @@ package encounter {
       this.textBox.wordWrap = true;
       addChild(this.textBox);
 
-      this.textTimer = new Timer(25);
+      var maskSprite:Sprite = new Sprite();
+      maskSprite.graphics.beginFill(0, 0);
+      maskSprite.graphics.drawRect(0, 0, 720, 480);
+      maskSprite.graphics.endFill();
+      addChild(maskSprite);
+      this.mask = maskSprite;
+
+      this.textTimer = new Timer(10);
       this.textTimer.addEventListener(TimerEvent.TIMER, onTextTimer);
       addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
       addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
@@ -99,7 +110,14 @@ package encounter {
     }
 
     public function start():void {
-      this.setText("Wild NOTHING appeared!");
+      this.setText("Wild " + this.encounter_.pokemon + " appeared!");
+
+      var tmr1:Timer = new Timer(2000, 1);
+      tmr1.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
+        setText("Go! VARIABLE!");
+        new GTween(characterSprite, 1, {x:-characterSprite.width});
+      });
+      tmr1.start();
     }
   }
 }

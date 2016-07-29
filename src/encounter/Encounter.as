@@ -14,6 +14,7 @@ package encounter {
   public class Encounter extends Sprite {
     public static var ACTIVE:Boolean = false;
 
+    public var pokemon:String;
     private var gs:GameSprite;
     private var step:int = 0;
     private var flashSprite:Sprite;
@@ -24,8 +25,9 @@ package encounter {
     private var coverRect2:Sprite;
     private var encounterBattle:EncounterBattle;
 
-    public function Encounter(gs:GameSprite) {
+    public function Encounter(gs:GameSprite, pokemon:String) {
       this.gs = gs;
+      this.pokemon = pokemon;
       this.flashSprite = new Sprite();
       this.flashSprite.alpha = 0;
       this.flashSprite.graphics.beginFill(0);
@@ -93,7 +95,7 @@ package encounter {
     private function onDoneTimer(event:TimerEvent):void {
       doneTimer.stop();
 
-      this.encounterBattle = new EncounterBattle(this.gs);
+      this.encounterBattle = new EncounterBattle(this.gs, this);
       this.encounterBattle.x = 40;
       this.encounterBattle.y = 60;
       addChild(this.encounterBattle);

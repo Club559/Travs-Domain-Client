@@ -1732,12 +1732,12 @@ public class _1f {
 
     private function encounterStart(_arg1:EncounterStart):void {
         _vf._gs.reload("encounter", false);
-        _vf._gs.newSound.addEventListener(Event.COMPLETE, onEncounterSoundLoaded);
+        _vf._gs.newSound.addEventListener(Event.COMPLETE, function(event:Event){ onEncounterSoundLoaded(_arg1.pokemon_) });
         this.gs_.map_.player_.inEncounter = true;
     }
 
-    private function onEncounterSoundLoaded(event:Event):void {
-        var encounter:Encounter = new Encounter(this.gs_);
+    private function onEncounterSoundLoaded(_arg1:String):void {
+        var encounter:Encounter = new Encounter(this.gs_, _arg1);
         this.gs_.stage.addChild(encounter);
         this.gs_.stage.stageFocusRect = false;
         this.gs_.stage.focus = encounter;

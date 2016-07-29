@@ -12,16 +12,16 @@ public class EncounterStart extends _01Q_ {
         super(_arg1);
     }
 
-    //public var item_:int;
+    public var pokemon_:String;
     //public var data_:String;
 
     override public function parseFromInput(_arg1:IDataInput):void {
         //this.item_ = _arg1.readInt();
-        //this.data_ = _arg1.readUTF();
+        this.pokemon_ = _arg1.readUTF();
     }
 
     override public function toString():String {
-        return (formatToString("ENCOUNTERSTART"));
+        return (formatToString("ENCOUNTERSTART", "pokemon_"));
     }
 
 }
