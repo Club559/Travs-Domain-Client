@@ -35,8 +35,8 @@ package encounter {
     private var desiredText:String = "";
     private var textPosition:int = 0;
     private var textTimer:Timer;
-    private var enemyPokemon:Bitmap;
-    private var yourPokemon:Bitmap;
+    private var enemyPokemon:EncounterPokemon;
+    private var yourPokemon:EncounterPokemon;
     private var step:int = 0;
 
     public function EncounterBattle(gs:GameSprite, _encounter:Encounter) {
@@ -57,9 +57,9 @@ package encounter {
       this.textBox.y = this.textBoxSprite.y + 21;
       this.textBox.wordWrap = true;
       addChild(this.textBox);
-      this.enemyPokemon = new Bitmap(PokemonLibrary.getFrontSprite(PokemonLibrary.NameToId[_encounter.pokemon]));
-      this.enemyPokemon.x = 428;
-      this.enemyPokemon.y = 24;
+      this.enemyPokemon = new EncounterPokemon(_encounter.pokemon, 0, true);
+      this.enemyPokemon.x = 525;
+      this.enemyPokemon.y = 190;
       addChild(this.enemyPokemon);
 
       var maskSprite:Sprite = new Sprite();
@@ -119,20 +119,28 @@ package encounter {
     public function start():void {
       this.setText("Wild " + this.encounter_.pokemon + " appeared!");
 
+      var myPokemonName:String = "Blastoise";
+
       var tmr1:Timer = new Timer(2000, 1);
       tmr1.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
-        setText("Go! Bulbasaur!");
+        setText("Go! " + myPokemonName + "!");
         new GTween(characterSprite, 1, {x:-characterSprite.width});
       });
       var tmr2:Timer = new Timer(3000, 1);
       tmr2.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
-        yourPokemon = new Bitmap(PokemonLibrary.getBackSprite(1));
-        yourPokemon.x = 90;
-        yourPokemon.y = 132;
+        yourPokemon = new EncounterPokemon(myPokemonName, 0, false);
+        yourPokemon.x = 188;
+        yourPokemon.y = 324;
         addChild(yourPokemon);
       });
+      var tmr3:Timer = new Timer(5000, 1);
+      tmr3.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
+        encounter_.close();
+      });
+
       tmr1.start();
       tmr2.start();
+      tmr3.start();
     }
   }
 }

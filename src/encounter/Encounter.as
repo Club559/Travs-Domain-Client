@@ -4,6 +4,8 @@
 package encounter {
   import _05R_.GTween;
 
+  import _vf._gs;
+
   import com.company.assembleegameclient.game.GameSprite;
 
   import flash.display.Sprite;
@@ -36,7 +38,13 @@ package encounter {
       this.flashSprite.graphics.endFill();
       addChild(this.flashSprite);
       focusRect = false;
+      addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
       addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+    }
+
+    private function onRemovedFromStage(event:Event):void {
+      Encounter.ACTIVE = false;
+      removeEventListener(Event.ENTER_FRAME, onEnterFrame);
     }
 
     private function onAddedToStage(event:Event):void {
@@ -132,6 +140,12 @@ package encounter {
       addChild(rect1);
       addChild(rect2);
       rectCount++;
+    }
+
+    public function close():void {
+      _vf._gs.reload(PREVIOUSMUSIC, false);
+      this.gs.map_.player_.inEncounter = false;
+      parent.removeChild(this);
     }
   }
 }
